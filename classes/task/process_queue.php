@@ -26,7 +26,7 @@
 namespace local_culactivity_stream\task;
 
 // To run on command line:
-// php admin/tool/task/cli/schedule_task.php --execute=\\local_culactivity_stream\\task\\process_queue
+// php admin/tool/task/cli/scheduled_task.php --execute=\\local_culactivity_stream\\task\\process_queue
 // .
 
 class process_queue extends \core\task\scheduled_task {
@@ -75,7 +75,7 @@ class process_queue extends \core\task\scheduled_task {
 
             // Get the config from the database
             try {
-                $blacklistcourseids = $DB->get_record('config', array('name' => 'blacklistcourseid')); // Need to rename table id to represent plurals
+                $blacklistcourseids = $DB->get_record('config', array('name' => 'blacklistcourseids')); // Need to rename table id to represent plurals
             } catch (\Exception $e) {
                 mtrace("Error getting courseids $e->getMessage()");
             }
@@ -83,7 +83,7 @@ class process_queue extends \core\task\scheduled_task {
             // check the response returned a value
             $is_not_blacklisted = false;
             if ($blacklistcourseids != false) {
-                $courseids = explode('|',$blacklistcourseids->value); // needs validation and checking
+                $courseids[] = explode('|',$blacklistcourseids->value); // needs validation and checking
                 if (!in_array($message->courseid, $courseids)) {
                     $is_not_blacklisted = true;
                 }                
