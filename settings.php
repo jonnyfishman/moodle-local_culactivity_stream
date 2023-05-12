@@ -49,7 +49,7 @@ if ($hassiteconfig) {
     $courses = $DB->get_records_sql('SELECT id, fullname FROM {course}');
 
     // Create an array of dropdown options
-    $options = array();
+    $options = array('0' => 'Blacklist no courses');
     foreach ($courses as $course) {
         $options[$course->id] = $course->fullname;
     }
@@ -59,7 +59,7 @@ if ($hassiteconfig) {
         'blacklistcourseids',
         new lang_string('blacklistcourseids', 'local_culactivity_stream'),
         new lang_string('configblacklistcourseids', 'local_culactivity_stream'),
-        '',
+        array('0'),
         $options
     ));
 }
