@@ -114,7 +114,9 @@ class process_queue extends \core\task\scheduled_task {
                     }
                 }
             } else if ($is_not_blacklisted == false) {
-                mtrace("Blacklisted course id: $message->courseid");
+                if (debugging()) {
+                    mtrace("Blacklisted course id: $message->courseid");
+                }
                 $message->sent = 1;
                 // could use this to remove from the record
             } else {
