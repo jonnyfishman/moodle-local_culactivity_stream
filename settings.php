@@ -45,10 +45,21 @@ if ($hassiteconfig) {
         $options
     ));
 
-    $settings->add(new admin_setting_configtextarea(
-        'blacklistcourseid',
-        new lang_string('blacklistcourseid', 'local_culactivity_stream'),
-        new lang_string('configblacklistcourseid', 'local_culactivity_stream'),
-        ''
+    // Fetch all course ids from the mdl_course table
+    $courses = $DB->get_records_sql('SELECT id, fullname FROM {course}');
+
+    // Create an array of dropdown options
+    $options = array();
+    foreach ($courses as $course) {
+        $options[$course->id] = $course->fullname;
+    }
+
+    // Add the multi-select dropdown setting to the page
+    $settings->add(new admin_setting_configmultiselect(
+        'blacklistcourseids',
+        new lang_string('blacklistcourseids', 'local_culactivity_stream'),
+        new lang_string('configblacklistcourseids', 'local_culactivity_stream'),
+        '',
+        $options
     ));
 }
