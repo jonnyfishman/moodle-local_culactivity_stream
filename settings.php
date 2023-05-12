@@ -49,7 +49,7 @@ if ($hassiteconfig) {
     $courses = $DB->get_records_sql('SELECT id, fullname FROM {course}');
 
     // Create an array of dropdown options
-    $options = array('0' => 'Blacklist no courses');
+    $options = array('0' => get_string('blacklistcourseidsdefault', 'local_culactivity_stream'));
     foreach ($courses as $course) {
         $options[$course->id] = $course->fullname;
     }
