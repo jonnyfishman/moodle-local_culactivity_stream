@@ -83,7 +83,7 @@ class process_queue extends \core\task\scheduled_task {
             // check the response returned a value
             $is_not_blacklisted = false;
             if ($blacklistcourseids != false) {
-                $courseids[] = explode(',',$blacklistcourseids->value); // needs validation and checking
+                $courseids = explode(',',$blacklistcourseids->value); // needs validation and checking
                 if (!in_array($message->courseid, $courseids)) {
                     $is_not_blacklisted = true;
                 }                
